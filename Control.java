@@ -18,7 +18,7 @@ public class Control {
 		accessData();
 	}
 	
-	public void accessData() throws FileNotFoundException {
+	private void accessData() throws FileNotFoundException {
 		File data = new File("1.txt");
 		 Scanner in = new Scanner(data);
 	     for (int row= 0; row <NUM_COL;row++)
@@ -30,6 +30,7 @@ public class Control {
 			
 		}
 		}
+	     in.close();
 	}
 	
 	private int[] getSectionStartPoint(int section) {
@@ -75,7 +76,9 @@ public class Control {
 		return temp;	
 	}
 	
-
+	public String print() {
+		return board[2][0];
+	}
 	private boolean testSection(int numOfSection, int value) {
 		boolean test = false;
 		int[] temp = getSectionStartPoint(numOfSection);
@@ -84,7 +87,7 @@ public class Control {
 		for (int row= temp[1]; row <rowRange;row++)
 		{
 			for (int col = temp[0]; col<colRange; col++){
-				if(board[col][row]==Integer.toString(value)) {
+				if(board[col][row].equals(Integer.toString(value))) {
 					test = true;
 					break;
 				}
@@ -96,7 +99,7 @@ public class Control {
 		boolean test = false;
 		for (int x=0 ; x < NUM_COL;x++)
 		{
-			if(board[x][numOfRow] == Integer.toString(value)) {
+			if(board[x][numOfRow].equals(Integer.toString(value))) {
 				test = true;
 				break;
 			}
@@ -108,7 +111,7 @@ public class Control {
 		boolean test = false;
 		for (int x=0 ; x < NUM_ROW;x++)
 		{
-			if(board[numOfCol][x] == Integer.toString(value)) {
+			if(board[numOfCol][x].equals(Integer.toString(value))) {
 				test = true;
 				break;
 			}
@@ -118,7 +121,13 @@ public class Control {
 	
 
 	
+	public void setElement(int col, int row, String value) {
+		board[col][row] = value;
+	}
 	
+	public void removeElement(int col, int row, String value) {
+		board[col][row] = "*";
+	}
 	public boolean sectionTest(int numOfSection, int value) {
 		return testSection(numOfSection,value);
 	}
